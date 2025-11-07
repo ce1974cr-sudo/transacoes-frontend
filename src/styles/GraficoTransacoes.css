@@ -1,0 +1,87 @@
+.grafico-container {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.grafico-container h2 {
+  font-size: 1.5rem;
+  color: #1f2937;
+  margin-bottom: 10px;
+}
+
+.grafico-descricao {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 30px;
+}
+
+.custom-tooltip {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.custom-tooltip .label {
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 8px;
+  font-size: 0.875rem;
+}
+
+.custom-tooltip .valor {
+  color: #2563eb;
+  margin-bottom: 5px;
+  font-size: 0.875rem;
+}
+
+.custom-tooltip .quantidade {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.custom-tooltip strong {
+  font-weight: 700;
+}
+
+.grafico-info {
+  display: flex;
+  gap: 30px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.grafico-info strong {
+  color: #1f2937;
+  font-weight: 700;
+}
+
+.grafico-vazio {
+  text-align: center;
+  padding: 60px 20px;
+  color: #6b7280;
+}
+
+.grafico-vazio p {
+  font-size: 1rem;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .grafico-container {
+    padding: 20px 15px;
+  }
+
+  .grafico-info {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+

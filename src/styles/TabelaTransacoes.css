@@ -1,0 +1,166 @@
+.tabela-container {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tabela-header {
+  margin-bottom: 20px;
+}
+
+.tabela-header h2 {
+  font-size: 1.5rem;
+  color: #1f2937;
+  margin-bottom: 10px;
+}
+
+.tabela-info {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.aviso {
+  color: #d97706;
+  font-weight: 600;
+}
+
+.tabela-wrapper {
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+.tabela-transacoes {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.tabela-transacoes thead {
+  background: #f9fafb;
+}
+
+.tabela-transacoes th {
+  padding: 12px 15px;
+  text-align: left;
+  font-weight: 600;
+  color: #374151;
+  border-bottom: 2px solid #e5e7eb;
+  white-space: nowrap;
+}
+
+.tabela-transacoes tbody tr {
+  border-bottom: 1px solid #e5e7eb;
+  transition: background-color 0.2s;
+}
+
+.tabela-transacoes tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.tabela-transacoes td {
+  padding: 12px 15px;
+  color: #1f2937;
+}
+
+.tabela-transacoes td.data {
+  font-weight: 600;
+  color: #2563eb;
+  white-space: nowrap;
+}
+
+.tabela-transacoes td.cadastro {
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.tabela-transacoes td.logradouro {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tabela-transacoes td.numero {
+  text-align: center;
+  font-weight: 600;
+}
+
+.tabela-transacoes td.complemento {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #6b7280;
+  font-size: 0.8rem;
+}
+
+.tabela-transacoes td.cep {
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.tabela-transacoes td.valor {
+  font-weight: 700;
+  color: #059669;
+  white-space: nowrap;
+}
+
+.tabela-transacoes td.area {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.tabela-vazia {
+  text-align: center;
+  padding: 60px 20px;
+  color: #6b7280;
+}
+
+.tabela-vazia p {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+/* Responsivo */
+@media (max-width: 1024px) {
+  .tabela-transacoes {
+    font-size: 0.8rem;
+  }
+
+  .tabela-transacoes th,
+  .tabela-transacoes td {
+    padding: 10px 12px;
+  }
+
+  .tabela-transacoes td.logradouro {
+    max-width: 150px;
+  }
+
+  .tabela-transacoes td.complemento {
+    max-width: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .tabela-container {
+    padding: 20px 15px;
+  }
+
+  .tabela-transacoes {
+    font-size: 0.75rem;
+  }
+
+  .tabela-transacoes th,
+  .tabela-transacoes td {
+    padding: 8px 10px;
+  }
+}
+
