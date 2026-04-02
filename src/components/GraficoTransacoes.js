@@ -14,18 +14,10 @@ import '../styles/GraficoTransacoes.css';
 function GraficoTransacoes({ dados }) {
   const [periodo, setPeriodo] = useState('30d');
 
-  if (!dados || dados.length === 0) {
-    return (
-      <div className="grafico-container">
-        <div className="grafico-vazio">
-          <p>Nenhum dado disponível para o gráfico.</p>
-        </div>
-      </div>
-    );
-  }
-
   // 🔹 Normalização robusta
   const normalizados = useMemo(() => {
+    if (!dados) return [];
+
     return dados
       .map(item => {
         const dataBruta = item.data || item.data_transacao || item.mes;
@@ -60,7 +52,17 @@ function GraficoTransacoes({ dados }) {
     return normalizados.filter(d => d.dataObj >= limite);
   }, [normalizados, periodo]);
 
-  // 🔹 Formatação eixo Y
+  // 🔹 Agora sim pode ter return condicional
+  if (!dadosFiltrados || dadosFiltrados.length === 0) {
+    return (
+      <div className="grafico-container">
+        <div className="grafico-vazio">
+          <p>Nenhum dado disponível para o gráfico.</p>
+        </div>
+      </div>
+    );
+  }
+
   const formatarValor = (valor) => {
     if (valor >= 1_000_000) return `R$ ${(valor / 1_000_000).toFixed(1)}M`;
     if (valor >= 1_000) return `R$ ${(valor / 1_000).toFixed(0)}k`;
@@ -74,7 +76,6 @@ function GraficoTransacoes({ dados }) {
     }).format(valor);
   };
 
-  // 🔹 Tooltip
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       const item = payload[0];
@@ -92,7 +93,6 @@ function GraficoTransacoes({ dados }) {
     <div className="grafico-container">
       <h2>Histórico de Valores</h2>
 
-      {/* 🔹 Filtro de período */}
       <div className="grafico-filtros">
         {['7d', '30d', '90d', '1y', 'all'].map(p => (
           <button
@@ -117,7 +117,6 @@ function GraficoTransacoes({ dados }) {
             angle={-45}
             textAnchor="end"
             height={80}
-            interval="preserveStartEnd"
           />
 
           <YAxis
