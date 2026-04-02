@@ -7,14 +7,17 @@ function Filtros({ onBuscar, carregando }) {
     numero: '',
     areaMinima: '',
     areaMaxima: '',
-    limit: 1000
+    limit: 10
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     setFiltros(prev => ({
       ...prev,
-      [name]: value
+      [name]: name === 'limit'
+        ? (parseInt(value) || 10)
+        : value
     }));
   };
 
@@ -29,8 +32,9 @@ function Filtros({ onBuscar, carregando }) {
       numero: '',
       areaMinima: '',
       areaMaxima: '',
-      limit: 1000
+      limit: 10
     };
+
     setFiltros(filtrosLimpos);
     onBuscar(filtrosLimpos);
   };
@@ -38,8 +42,10 @@ function Filtros({ onBuscar, carregando }) {
   return (
     <div className="filtros-container">
       <h2>Filtros de Busca</h2>
+
       <form onSubmit={handleSubmit} className="filtros-form">
         <div className="filtros-grid">
+
           <div className="form-group">
             <label htmlFor="cadastroSql">
               Cadastro SQL
@@ -108,20 +114,19 @@ function Filtros({ onBuscar, carregando }) {
             <label htmlFor="limit">
               Limite de Resultados
             </label>
-            <select
+            <input
+              type="number"
               id="limit"
               name="limit"
               value={filtros.limit}
               onChange={handleChange}
+              placeholder="Ex: 10"
+              min="1"
+              max="10000"
               disabled={carregando}
-            >
-              <option value="100">100</option>
-              <option value="500">500</option>
-              <option value="1000">1.000</option>
-              <option value="2000">2.000</option>
-              <option value="5000">5.000</option>
-            </select>
+            />
           </div>
+
         </div>
 
         <div className="filtros-acoes">
@@ -132,6 +137,7 @@ function Filtros({ onBuscar, carregando }) {
           >
             {carregando ? 'Buscando...' : 'Buscar'}
           </button>
+
           <button 
             type="button" 
             className="btn btn-secondary"
@@ -147,4 +153,3 @@ function Filtros({ onBuscar, carregando }) {
 }
 
 export default Filtros;
-
