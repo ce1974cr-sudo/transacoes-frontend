@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-// URL da API - altere para a URL do seu backend no Render
+// URL da API
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 30000, // 30 segundos
+  timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -17,27 +17,42 @@ const api = axios.create({
 export const buscarTransacoes = async (filtros) => {
   try {
     const params = {};
-    
+
     if (filtros.cadastroSql) {
       params.cadastro_sql = filtros.cadastroSql;
     }
-    
+
     if (filtros.numero) {
       params.numero = parseInt(filtros.numero);
     }
-    
+
     if (filtros.areaMinima) {
       params.area_minima = parseFloat(filtros.areaMinima);
     }
-    
+
     if (filtros.areaMaxima) {
       params.area_maxima = parseFloat(filtros.areaMaxima);
     }
-    
-    params.limit = filtros.limit || 1000;
-    
+
+    // 🔥 CORREÇÃO PRINCIPAL (VALORES)
+    if (filtros.valorMin !== '' && filtros.valorMin !== null) {
+      params.valor_min = parseFloat(filtros.valorMin);
+    }
+
+    if (filtros.valorMax !== '' && filtros.valorMax !== null) {
+      params.valor_max = parseFloat(filtros.valorMax);
+    }
+
+    // 🔹 limite
+    params.limit = filtros.limit || 10;
+
+    // 🔍 DEBUG (ver no console do navegador)
+    console.log("PARAMS:", params);
+
     const response = await api.get('/transacoes', { params });
+
     return response.data;
+
   } catch (error) {
     console.error('Erro ao buscar transações:', error);
     throw error;
@@ -71,4 +86,3 @@ export const verificarSaude = async () => {
 };
 
 export default api;
-
