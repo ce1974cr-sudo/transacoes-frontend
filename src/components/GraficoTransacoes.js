@@ -22,13 +22,29 @@ function GraficoTransacoes({ dados }) {
     );
   }
 
-  // Preparar dados reais (sem média)
+  // 🔹 Funções robustas para capturar campos corretos
+  const getData = (item) => {
+    return item.data || item.data_transacao || item.mes || null;
+  };
+
+  const getValor = (item) => {
+    return item.valor || item.valor_transacao || item.valor_medio || 0;
+  };
+
+  // 🔹 Preparação dos dados (robusta)
   const dadosGrafico = [...dados]
-    .reverse() // garante ordem cronológica
-    .map(item => ({
-      data: new Date(item.data).toLocaleDateString('pt-BR'),
-      valor: item.valor ? Math.round(item.valor) : 0
-    }));
+    .reverse()
+    .map(item => {
+      const dataBruta = getData(item);
+      const valorBruto = getValor(item);
+
+      return {
+        data: dataBruta
+          ? new Date(dataBruta).toLocaleDateString('pt-BR')
+          : 'Sem data',
+        valor: valorBruto ? Math.round(valorBruto) : 0
+      };
+    });
 
   const formatarValor = (valor) => {
     return new Intl.NumberFormat('pt-BR', {
@@ -57,7 +73,7 @@ function GraficoTransacoes({ dados }) {
     <div className="grafico-container">
       <h2>Histórico de Valores</h2>
       <p className="grafico-descricao">
-        Valores reais das transações (últimos registros conforme limite)
+        Valores reais das transações (conforme limite aplicado)
       </p>
       
       <ResponsiveContainer width="100%" height={400}>
