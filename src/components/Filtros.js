@@ -7,6 +7,8 @@ function Filtros({ onBuscar, carregando }) {
     numero: '',
     areaMinima: '',
     areaMaxima: '',
+    valorMin: '',
+    valorMax: '',
     limit: 10
   });
 
@@ -32,6 +34,8 @@ function Filtros({ onBuscar, carregando }) {
       numero: '',
       areaMinima: '',
       areaMaxima: '',
+      valorMin: '',
+      valorMax: '',
       limit: 10
     };
 
@@ -57,7 +61,6 @@ function Filtros({ onBuscar, carregando }) {
               name="cadastroSql"
               value={filtros.cadastroSql}
               onChange={handleChange}
-              placeholder="Ex: 01234"
               disabled={carregando}
             />
           </div>
@@ -73,7 +76,6 @@ function Filtros({ onBuscar, carregando }) {
               name="numero"
               value={filtros.numero}
               onChange={handleChange}
-              placeholder="Ex: 100"
               disabled={carregando}
             />
           </div>
@@ -88,7 +90,6 @@ function Filtros({ onBuscar, carregando }) {
               name="areaMinima"
               value={filtros.areaMinima}
               onChange={handleChange}
-              placeholder="Ex: 50"
               step="0.01"
               disabled={carregando}
             />
@@ -104,8 +105,36 @@ function Filtros({ onBuscar, carregando }) {
               name="areaMaxima"
               value={filtros.areaMaxima}
               onChange={handleChange}
-              placeholder="Ex: 200"
               step="0.01"
+              disabled={carregando}
+            />
+          </div>
+
+          {/* 🔥 NOVO BLOCO */}
+          <div className="form-group">
+            <label htmlFor="valorMin">
+              Valor Mínimo (R$)
+            </label>
+            <input
+              type="number"
+              id="valorMin"
+              name="valorMin"
+              value={filtros.valorMin}
+              onChange={handleChange}
+              disabled={carregando}
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="valorMax">
+              Valor Máximo (R$)
+            </label>
+            <input
+              type="number"
+              id="valorMax"
+              name="valorMax"
+              value={filtros.valorMax}
+              onChange={handleChange}
               disabled={carregando}
             />
           </div>
@@ -120,7 +149,6 @@ function Filtros({ onBuscar, carregando }) {
               name="limit"
               value={filtros.limit}
               onChange={handleChange}
-              placeholder="Ex: 10"
               min="1"
               max="10000"
               disabled={carregando}
