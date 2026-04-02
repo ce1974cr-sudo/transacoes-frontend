@@ -12,7 +12,8 @@ import {
 import '../styles/GraficoTransacoes.css';
 
 function GraficoTransacoes({ dados }) {
-  const [periodo, setPeriodo] = useState('30d');
+  // 🔥 começa mostrando tudo (evita gráfico vazio)
+  const [periodo, setPeriodo] = useState('all');
 
   // 🔹 Normalização robusta
   const normalizados = useMemo(() => {
@@ -23,10 +24,12 @@ function GraficoTransacoes({ dados }) {
         const dataBruta = item.data || item.data_transacao || item.mes;
         const valorBruto = item.valor || item.valor_transacao || item.valor_medio;
 
+        const dataObj = dataBruta ? new Date(dataBruta) : null;
+
         return {
-          dataObj: dataBruta ? new Date(dataBruta) : null,
-          data: dataBruta
-            ? new Date(dataBruta).toLocaleDateString('pt-BR')
+          dataObj,
+          data: dataObj
+            ? dataObj.toLocaleDateString('pt-BR')
             : 'Sem data',
           valor: valorBruto ? Number(valorBruto) : 0
         };
@@ -35,7 +38,7 @@ function GraficoTransacoes({ dados }) {
       .sort((a, b) => a.dataObj - b.dataObj);
   }, [dados]);
 
-  // 🔹 Filtro por período
+  // 🔹 Filtro com fallback automático
   const dadosFiltrados = useMemo(() => {
     if (periodo === 'all') return normalizados;
 
@@ -49,10 +52,14 @@ function GraficoTransacoes({ dados }) {
     const limite = new Date();
     limite.setDate(limite.getDate() - diasMap[periodo]);
 
-    return normalizados.filter(d => d.dataObj >= limite);
+    const filtrados = normalizados.filter(d => d.dataObj >= limite);
+
+    // 🔥 fallback: se não tiver dados no período, mostra tudo
+    return filtrados.length > 0 ? filtrados : normalizados;
+
   }, [normalizados, periodo]);
 
-  // 🔹 Agora sim pode ter return condicional
+  // 🔹 Agora pode validar
   if (!dadosFiltrados || dadosFiltrados.length === 0) {
     return (
       <div className="grafico-container">
@@ -63,6 +70,7 @@ function GraficoTransacoes({ dados }) {
     );
   }
 
+  // 🔹 Formatação eixo Y
   const formatarValor = (valor) => {
     if (valor >= 1_000_000) return `R$ ${(valor / 1_000_000).toFixed(1)}M`;
     if (valor >= 1_000) return `R$ ${(valor / 1_000).toFixed(0)}k`;
@@ -76,6 +84,7 @@ function GraficoTransacoes({ dados }) {
     }).format(valor);
   };
 
+  // 🔹 Tooltip
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       const item = payload[0];
@@ -93,6 +102,7 @@ function GraficoTransacoes({ dados }) {
     <div className="grafico-container">
       <h2>Histórico de Valores</h2>
 
+      {/* 🔹 Filtros */}
       <div className="grafico-filtros">
         {['7d', '30d', '90d', '1y', 'all'].map(p => (
           <button
@@ -117,6 +127,7 @@ function GraficoTransacoes({ dados }) {
             angle={-45}
             textAnchor="end"
             height={80}
+            interval="preserveStartEnd"
           />
 
           <YAxis
