@@ -22,7 +22,7 @@ function GraficoTransacoes({ dados }) {
     );
   }
 
-  // 🔹 Funções robustas para capturar campos corretos
+  // 🔹 Funções robustas (compatibilidade com backend)
   const getData = (item) => {
     return item.data || item.data_transacao || item.mes || null;
   };
@@ -31,7 +31,7 @@ function GraficoTransacoes({ dados }) {
     return item.valor || item.valor_transacao || item.valor_medio || 0;
   };
 
-  // 🔹 Preparação dos dados (robusta)
+  // 🔹 Preparação dos dados
   const dadosGrafico = [...dados]
     .reverse()
     .map(item => {
@@ -46,7 +46,18 @@ function GraficoTransacoes({ dados }) {
       };
     });
 
+  // 🔹 Formatação inteligente de valores
   const formatarValor = (valor) => {
+    if (valor >= 1_000_000) {
+      return `R$ ${(valor / 1_000_000).toFixed(1)}M`;
+    }
+    if (valor >= 1_000) {
+      return `R$ ${(valor / 1_000).toFixed(0)}k`;
+    }
+    return `R$ ${valor}`;
+  };
+
+  const formatarValorCompleto = (valor) => {
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
       currency: 'BRL',
@@ -55,13 +66,14 @@ function GraficoTransacoes({ dados }) {
     }).format(valor);
   };
 
+  // 🔹 Tooltip customizado
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
         <div className="custom-tooltip">
           <p className="label">{payload[0].payload.data}</p>
           <p className="valor">
-            Valor: <strong>{formatarValor(payload[0].value)}</strong>
+            Valor: <strong>{formatarValorCompleto(payload[0].value)}</strong>
           </p>
         </div>
       );
@@ -79,7 +91,7 @@ function GraficoTransacoes({ dados }) {
       <ResponsiveContainer width="100%" height={400}>
         <BarChart
           data={dadosGrafico}
-          margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
+          margin={{ top: 20, right: 30, left: 60, bottom: 60 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
 
@@ -88,9 +100,12 @@ function GraficoTransacoes({ dados }) {
             angle={-45}
             textAnchor="end"
             height={80}
+            interval="preserveStartEnd"
           />
 
           <YAxis 
+            width={100}
+            tick={{ fontSize: 12 }}
             tickFormatter={(value) => formatarValor(value)}
           />
 
