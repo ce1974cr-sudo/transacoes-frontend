@@ -1,87 +1,249 @@
+@import './variables.css';
+
 .grafico-container {
-  background: white;
-  border-radius: 12px;
-  padding: 30px;
-  margin-bottom: 30px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-2xl);
+  margin-bottom: var(--spacing-2xl);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  animation: fadeInUp 0.6s ease-out 0.4s both;
 }
 
 .grafico-container h2 {
-  font-size: 1.5rem;
-  color: #1f2937;
-  margin-bottom: 10px;
+  font-size: var(--font-2xl);
+  margin-bottom: var(--spacing-lg);
+  color: var(--text-primary);
+  font-weight: var(--font-bold);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.grafico-container h2::before {
+  content: '📈';
+  font-size: var(--font-3xl);
 }
 
 .grafico-descricao {
-  font-size: 0.875rem;
-  color: #6b7280;
-  margin-bottom: 30px;
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-lg);
+  line-height: 1.5;
+}
+
+/* Filtros de Período */
+.grafico-filtros {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+.grafico-filtros button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 2px solid var(--border-color);
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border-radius: var(--radius-md);
+  font-size: var(--font-sm);
+  font-weight: var(--font-semibold);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.grafico-filtros button:hover:not(.ativo) {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: rgba(37, 99, 235, 0.05);
+}
+
+.grafico-filtros button.ativo {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  color: var(--text-inverse);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.grafico-filtros button.ativo:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Gráfico */
+.recharts-wrapper {
+  margin-bottom: var(--spacing-lg);
 }
 
 .custom-tooltip {
-  background: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: var(--bg-secondary);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-tooltip);
+}
+
+.custom-tooltip p {
+  margin: 0;
+  font-size: var(--font-sm);
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.custom-tooltip p:first-child {
+  font-weight: var(--font-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-xs);
 }
 
 .custom-tooltip .label {
-  font-weight: 700;
-  color: #1f2937;
-  margin-bottom: 8px;
-  font-size: 0.875rem;
+  font-weight: var(--font-semibold);
+  color: var(--text-secondary);
 }
 
 .custom-tooltip .valor {
-  color: #2563eb;
-  margin-bottom: 5px;
-  font-size: 0.875rem;
+  color: var(--color-secondary);
+  font-weight: var(--font-bold);
 }
 
 .custom-tooltip .quantidade {
-  color: #6b7280;
-  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-size: var(--font-xs);
+  margin-top: var(--spacing-xs);
 }
 
-.custom-tooltip strong {
-  font-weight: 700;
-}
-
+/* Informações do Gráfico */
 .grafico-info {
   display: flex;
-  gap: 30px;
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid #e5e7eb;
-  font-size: 0.875rem;
-  color: #6b7280;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--border-color);
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.grafico-info p {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
 }
 
 .grafico-info strong {
-  color: #1f2937;
-  font-weight: 700;
+  color: var(--color-primary);
+  font-weight: var(--font-bold);
 }
 
+/* Estado Vazio */
 .grafico-vazio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  padding: var(--spacing-2xl);
   text-align: center;
-  padding: 60px 20px;
-  color: #6b7280;
+  color: var(--text-secondary);
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-lg);
 }
 
 .grafico-vazio p {
-  font-size: 1rem;
+  font-size: var(--font-lg);
+  font-weight: var(--font-medium);
 }
 
 /* Responsivo */
+@media (max-width: 1024px) {
+  .grafico-container {
+    padding: var(--spacing-lg);
+  }
+
+  .grafico-container h2 {
+    font-size: var(--font-xl);
+  }
+
+  .grafico-filtros {
+    gap: var(--spacing-xs);
+  }
+
+  .grafico-filtros button {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-xs);
+  }
+}
+
 @media (max-width: 768px) {
   .grafico-container {
-    padding: 20px 15px;
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .grafico-container h2 {
+    font-size: var(--font-lg);
+  }
+
+  .grafico-container h2::before {
+    font-size: var(--font-2xl);
+  }
+
+  .grafico-filtros {
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+  }
+
+  .grafico-filtros button {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-xs);
+    flex: 1;
+    min-width: 50px;
   }
 
   .grafico-info {
     flex-direction: column;
-    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .custom-tooltip {
+    padding: var(--spacing-sm);
+  }
+
+  .custom-tooltip p {
+    font-size: var(--font-xs);
   }
 }
 
+@media (max-width: 480px) {
+  .grafico-container {
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+  }
+
+  .grafico-container h2 {
+    font-size: var(--font-base);
+  }
+
+  .grafico-container h2::before {
+    font-size: var(--font-2xl);
+  }
+
+  .grafico-filtros {
+    gap: var(--spacing-xs);
+  }
+
+  .grafico-filtros button {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-xs);
+    flex: 1;
+  }
+
+  .grafico-vazio {
+    min-height: 300px;
+    padding: var(--spacing-lg);
+  }
+
+  .grafico-vazio p {
+    font-size: var(--font-base);
+  }
+}
