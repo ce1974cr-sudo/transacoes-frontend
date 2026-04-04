@@ -5,11 +5,11 @@ function Filtros({ onBuscar, carregando }) {
   const [filtros, setFiltros] = useState({
     cadastroSql: '',
     numero: '',
-    areaMinima: '',
-    areaMaxima: '',
     valorMin: '',
     valorMax: '',
-    limit: 10
+    areaMinima: '',
+    areaMaxima: '',
+    limit: 50
   });
 
   const handleChange = (e) => {
@@ -18,7 +18,7 @@ function Filtros({ onBuscar, carregando }) {
     setFiltros(prev => ({
       ...prev,
       [name]: name === 'limit'
-        ? (parseInt(value) || 10)
+        ? (parseInt(value) || 50)
         : value
     }));
   };
@@ -32,11 +32,11 @@ function Filtros({ onBuscar, carregando }) {
     const filtrosLimpos = {
       cadastroSql: '',
       numero: '',
-      areaMinima: '',
-      areaMaxima: '',
       valorMin: '',
       valorMax: '',
-      limit: 10
+      areaMinima: '',
+      areaMaxima: '',
+      limit: 50
     };
 
     setFiltros(filtrosLimpos);
@@ -49,110 +49,120 @@ function Filtros({ onBuscar, carregando }) {
 
       <form onSubmit={handleSubmit} className="filtros-form">
         <div className="filtros-grid">
+          {/* Coluna 1: Cadastro SQL + Número do Imóvel */}
+          <div className="filtros-coluna">
+            <div className="form-group">
+              <label htmlFor="cadastroSql">
+                Cadastro SQL
+                <span className="hint">Digite parte do número</span>
+              </label>
+              <input
+                type="text"
+                id="cadastroSql"
+                name="cadastroSql"
+                value={filtros.cadastroSql}
+                onChange={handleChange}
+                disabled={carregando}
+              />
+            </div>
 
-          <div className="form-group">
-            <label htmlFor="cadastroSql">
-              Cadastro SQL
-              <span className="hint">Digite parte do número</span>
-            </label>
-            <input
-              type="text"
-              id="cadastroSql"
-              name="cadastroSql"
-              value={filtros.cadastroSql}
-              onChange={handleChange}
-              disabled={carregando}
-            />
+            <div className="form-group">
+              <label htmlFor="numero">
+                Número do Imóvel
+                <span className="hint">Número exato</span>
+              </label>
+              <input
+                type="number"
+                id="numero"
+                name="numero"
+                value={filtros.numero}
+                onChange={handleChange}
+                disabled={carregando}
+              />
+            </div>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="numero">
-              Número do Imóvel
-              <span className="hint">Número exato</span>
-            </label>
-            <input
-              type="number"
-              id="numero"
-              name="numero"
-              value={filtros.numero}
-              onChange={handleChange}
-              disabled={carregando}
-            />
+          {/* Coluna 2: Valor Mínimo + Valor Máximo */}
+          <div className="filtros-coluna">
+            <div className="form-group">
+              <label htmlFor="valorMin">
+                Valor Mínimo (R$)
+              </label>
+              <input
+                type="number"
+                id="valorMin"
+                name="valorMin"
+                value={filtros.valorMin}
+                onChange={handleChange}
+                disabled={carregando}
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="valorMax">
+                Valor Máximo (R$)
+              </label>
+              <input
+                type="number"
+                id="valorMax"
+                name="valorMax"
+                value={filtros.valorMax}
+                onChange={handleChange}
+                disabled={carregando}
+              />
+            </div>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="areaMinima">
-              Área Mínima (m²)
-            </label>
-            <input
-              type="number"
-              id="areaMinima"
-              name="areaMinima"
-              value={filtros.areaMinima}
-              onChange={handleChange}
-              step="0.01"
-              disabled={carregando}
-            />
+          {/* Coluna 3: Área Mínima + Área Máxima */}
+          <div className="filtros-coluna">
+            <div className="form-group">
+              <label htmlFor="areaMinima">
+                Área Mínima (m²)
+              </label>
+              <input
+                type="number"
+                id="areaMinima"
+                name="areaMinima"
+                value={filtros.areaMinima}
+                onChange={handleChange}
+                step="0.01"
+                disabled={carregando}
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="areaMaxima">
+                Área Máxima (m²)
+              </label>
+              <input
+                type="number"
+                id="areaMaxima"
+                name="areaMaxima"
+                value={filtros.areaMaxima}
+                onChange={handleChange}
+                step="0.01"
+                disabled={carregando}
+              />
+            </div>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="areaMaxima">
-              Área Máxima (m²)
-            </label>
-            <input
-              type="number"
-              id="areaMaxima"
-              name="areaMaxima"
-              value={filtros.areaMaxima}
-              onChange={handleChange}
-              step="0.01"
-              disabled={carregando}
-            />
-          </div>
-
-          {/* 🔥 NOVO BLOCO */}
-          <div className="form-group">
-            <label htmlFor="valorMin">
-              Valor Mínimo (R$)
-            </label>
-            <input
-              type="number"
-              id="valorMin"
-              name="valorMin"
-              value={filtros.valorMin}
-              onChange={handleChange}
-              disabled={carregando}
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="valorMax">
-              Valor Máximo (R$)
-            </label>
-            <input
-              type="number"
-              id="valorMax"
-              name="valorMax"
-              value={filtros.valorMax}
-              onChange={handleChange}
-              disabled={carregando}
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="limit">
-              Limite de Resultados
-            </label>
-            <input
-              type="number"
-              id="limit"
-              name="limit"
-              value={filtros.limit}
-              onChange={handleChange}
-              min="1"
-              max="10000"
-              disabled={carregando}
-            />
+          {/* Coluna 4: Limite de Resultados */}
+          <div className="filtros-coluna">
+            <div className="form-group">
+              <label htmlFor="limit">
+                Limite de Resultados
+              </label>
+              <input
+                type="number"
+                id="limit"
+                name="limit"
+                value={filtros.limit}
+                onChange={handleChange}
+                min="1"
+                max="10000"
+                disabled={carregando}
+              />
+            </div>
           </div>
 
         </div>
