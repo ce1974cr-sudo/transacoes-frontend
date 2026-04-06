@@ -1,0 +1,354 @@
+/* ============================================================================
+   IPTU SIDEBAR - Painel Lateral para Dados do IPTU
+   ============================================================================ */
+
+/* Overlay (fundo escuro) */
+.iptu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Sidebar Container */
+.iptu-sidebar {
+  position: fixed;
+  right: -500px;
+  top: 0;
+  bottom: 0;
+  width: 500px;
+  background-color: #ffffff;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transition: right 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Sidebar Aberto */
+.iptu-sidebar.open {
+  right: 0;
+}
+
+/* Header */
+.iptu-sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 2px solid #f0f0f0;
+  background-color: #f9f9f9;
+  flex-shrink: 0;
+}
+
+.iptu-sidebar-header h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #333;
+  font-weight: 600;
+}
+
+/* Botão Fechar */
+.iptu-close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.iptu-close-btn:hover {
+  background-color: #f0f0f0;
+  color: #000;
+}
+
+/* Conteúdo */
+.iptu-sidebar-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+/* Seção */
+.iptu-section {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.iptu-section:last-child {
+  border-bottom: none;
+}
+
+.iptu-section h3 {
+  margin: 0 0 15px 0;
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Campo de Dados */
+.iptu-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.iptu-field:hover {
+  background-color: #f0f0f0;
+}
+
+.iptu-field label {
+  font-weight: 500;
+  color: #666;
+  font-size: 13px;
+  flex: 0 0 45%;
+  text-align: left;
+}
+
+.iptu-value {
+  flex: 0 0 55%;
+  text-align: right;
+  color: #333;
+  font-weight: 500;
+  font-size: 14px;
+  word-break: break-word;
+}
+
+/* Loading State */
+.iptu-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  gap: 20px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f0f0f0;
+  border-top: 4px solid #0066cc;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.iptu-loading p {
+  color: #666;
+  font-size: 14px;
+}
+
+/* Error State */
+.iptu-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  gap: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+.iptu-error p {
+  color: #d32f2f;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Retry Button */
+.iptu-retry-btn {
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.iptu-retry-btn:hover {
+  background-color: #0052a3;
+}
+
+/* Actions */
+.iptu-actions {
+  display: flex;
+  gap: 10px;
+  padding-top: 20px;
+  border-top: 1px solid #f0f0f0;
+  flex-shrink: 0;
+}
+
+.iptu-copy-btn {
+  flex: 1;
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.iptu-copy-btn:hover {
+  background-color: #0052a3;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.2);
+}
+
+.iptu-copy-btn:active {
+  transform: translateY(0);
+}
+
+/* ============================================================================
+   RESPONSIVO - Tablets e Celulares
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  .iptu-sidebar {
+    width: 100%;
+    right: -100%;
+  }
+
+  .iptu-sidebar.open {
+    right: 0;
+  }
+
+  .iptu-sidebar-header h2 {
+    font-size: 18px;
+  }
+
+  .iptu-field {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .iptu-field label {
+    flex: 1;
+    text-align: left;
+  }
+
+  .iptu-value {
+    flex: 1;
+    text-align: left;
+  }
+
+  .iptu-section h3 {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .iptu-sidebar {
+    width: 100%;
+  }
+
+  .iptu-sidebar-header {
+    padding: 15px;
+  }
+
+  .iptu-sidebar-header h2 {
+    font-size: 16px;
+  }
+
+  .iptu-sidebar-content {
+    padding: 15px;
+  }
+
+  .iptu-section {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+  }
+
+  .iptu-field {
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+
+  .iptu-value {
+    font-size: 13px;
+  }
+
+  .iptu-section h3 {
+    font-size: 14px;
+  }
+}
+
+/* ============================================================================
+   ANIMAÇÕES
+   ============================================================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* ============================================================================
+   SCROLLBAR CUSTOMIZADO
+   ============================================================================ */
+
+.iptu-sidebar-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.iptu-sidebar-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.iptu-sidebar-content::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.iptu-sidebar-content::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

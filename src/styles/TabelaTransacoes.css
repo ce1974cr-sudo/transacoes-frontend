@@ -1,292 +1,248 @@
-@import './variables.css';
+/* Estilos da Tabela de Transações */
 
 .tabela-container {
-  background: var(--bg-secondary);
-  border-radius: var(--radius-xl);
-  padding: var(--spacing-2xl);
-  margin-bottom: var(--spacing-2xl);
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--border-color);
-  animation: fadeInUp 0.6s ease-out 0.3s both;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  margin: 20px 0;
 }
 
 .tabela-header {
-  margin-bottom: var(--spacing-lg);
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  gap: var(--spacing-md);
+  padding: 20px;
+  border-bottom: 2px solid #f0f0f0;
+  background-color: #f9f9f9;
 }
 
 .tabela-header h2 {
-  font-size: var(--font-2xl);
-  color: var(--text-primary);
-  font-weight: var(--font-bold);
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-md);
+  margin: 0 0 10px 0;
+  font-size: 24px;
+  color: #333;
+  font-weight: 600;
 }
 
-.tabela-header h2::before {
-  content: '📊';
-  font-size: var(--font-3xl);
-}
-
-.tabela-info {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-sm);
-  text-align: right;
-}
-
-.tabela-info span {
-  font-size: var(--font-sm);
-  color: var(--text-secondary);
-}
-
-.tabela-info strong {
-  color: var(--color-primary);
-  font-weight: var(--font-bold);
-}
-
-.aviso {
-  background: var(--color-accent-light);
-  color: var(--color-accent-dark);
-  padding: var(--spacing-sm) var(--spacing-md);
-  border-radius: var(--radius-md);
-  font-size: var(--font-xs);
-  font-weight: var(--font-semibold);
-  display: inline-block;
-  border-left: 3px solid var(--color-accent);
-}
-
-.tabela-vazia {
-  text-align: center;
-  padding: var(--spacing-3xl) var(--spacing-2xl);
-  color: var(--text-secondary);
-}
-
-.tabela-vazia p {
-  font-size: var(--font-base);
-  margin-bottom: var(--spacing-md);
-  line-height: 1.6;
-}
-
-.tabela-vazia p:first-child {
-  font-size: var(--font-lg);
-  font-weight: var(--font-semibold);
-  color: var(--text-primary);
+.tabela-count {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
 }
 
 .tabela-wrapper {
   overflow-x: auto;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-color);
-  -webkit-overflow-scrolling: touch;
 }
 
 .tabela-transacoes {
   width: 100%;
   border-collapse: collapse;
-  font-size: var(--font-sm);
+  font-size: 14px;
 }
 
 .tabela-transacoes thead {
-  background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-gray-100) 100%);
-  border-bottom: 2px solid var(--color-primary);
+  background-color: #f9f9f9;
+  border-bottom: 2px solid #0066cc;
 }
 
-.tabela-transacoes thead th {
-  padding: var(--spacing-md);
+.tabela-transacoes th {
+  padding: 15px;
   text-align: left;
-  font-weight: var(--font-bold);
-  color: var(--color-primary-dark);
+  font-weight: 600;
+  color: #0066cc;
   white-space: nowrap;
-  letter-spacing: 0.3px;
-  text-transform: uppercase;
-  font-size: var(--font-xs);
+}
+
+.cadastro-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.info-icon {
+  font-size: 12px;
+  cursor: help;
 }
 
 .tabela-transacoes tbody tr {
-  border-bottom: 1px solid var(--border-color);
-  transition: all var(--transition-base);
-}
-
-.tabela-transacoes tbody tr:nth-child(even) {
-  background: var(--bg-tertiary);
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s ease;
 }
 
 .tabela-transacoes tbody tr:hover {
-  background: linear-gradient(90deg, rgba(37, 99, 235, 0.05) 0%, transparent 100%);
-  box-shadow: inset 0 0 0 1px rgba(37, 99, 235, 0.1);
+  background-color: #f9f9f9;
 }
 
-.tabela-transacoes tbody td {
-  padding: var(--spacing-md);
-  color: var(--text-primary);
-  word-break: break-word;
+.tabela-transacoes td {
+  padding: 12px 15px;
+  color: #333;
 }
 
-/* Estilos por coluna */
-.tabela-transacoes .data {
-  font-weight: var(--font-semibold);
-  color: var(--color-primary);
-  min-width: 100px;
+/* Célula de Data */
+.data-cell {
+  color: #0066cc;
+  font-weight: 500;
 }
 
-.tabela-transacoes .cadastro {
+/* Célula de Cadastro SQL - Botão */
+.cadastro-cell {
+  padding: 8px 15px;
+}
+
+.cadastro-sql-btn {
+  background: none;
+  border: 1px solid #0066cc;
+  color: #0066cc;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
   font-family: 'Courier New', monospace;
-  color: var(--color-gray-600);
-  font-size: var(--font-xs);
-  min-width: 120px;
 }
 
-.tabela-transacoes .logradouro {
-  max-width: 150px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.cadastro-sql-btn:hover {
+  background-color: #0066cc;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 102, 204, 0.3);
 }
 
-.tabela-transacoes .numero {
+.cadastro-sql-btn:active {
+  transform: translateY(0);
+}
+
+.iptu-icon {
+  font-size: 14px;
+}
+
+/* Célula de Logradouro */
+.logradouro-cell {
+  font-weight: 500;
+  color: #333;
+}
+
+/* Célula de Número */
+.numero-cell {
   text-align: center;
-  font-weight: var(--font-semibold);
-  min-width: 80px;
+  font-weight: 500;
 }
 
-.tabela-transacoes .complemento {
-  font-size: var(--font-xs);
-  color: var(--text-secondary);
-  max-width: 100px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+/* Célula de Complemento */
+.complemento-cell {
+  color: #666;
+  font-size: 13px;
 }
 
-.tabela-transacoes .cep {
+/* Célula de CEP */
+.cep-cell {
   font-family: 'Courier New', monospace;
-  color: var(--color-gray-600);
-  font-size: var(--font-xs);
-  min-width: 90px;
+  color: #666;
 }
 
-.tabela-transacoes .valor {
-  font-weight: var(--font-bold);
-  color: var(--color-secondary);
+/* Célula de Valor */
+.valor-cell {
   text-align: right;
-  min-width: 120px;
 }
 
-.tabela-transacoes .area {
+.valor-badge {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+/* Célula de Área */
+.area-cell {
   text-align: right;
-  color: var(--text-secondary);
-  min-width: 100px;
+  color: #666;
 }
 
-/* Responsivo */
-@media (max-width: 1024px) {
-  .tabela-container {
-    padding: var(--spacing-lg);
-  }
-
-  .tabela-transacoes {
-    font-size: var(--font-xs);
-  }
-
-  .tabela-transacoes thead th,
-  .tabela-transacoes tbody td {
-    padding: var(--spacing-sm);
-  }
+/* Tabela Vazia */
+.tabela-vazia {
+  padding: 40px 20px;
+  text-align: center;
+  color: #999;
+  font-size: 16px;
 }
+
+/* ============================================================================
+   RESPONSIVO - Tablets
+   ============================================================================ */
 
 @media (max-width: 768px) {
-  .tabela-container {
-    padding: var(--spacing-lg);
-    margin-bottom: var(--spacing-lg);
-  }
-
-  .tabela-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .tabela-header h2 {
-    font-size: var(--font-xl);
-  }
-
-  .tabela-info {
-    text-align: left;
-  }
-
-  .tabela-wrapper {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
   .tabela-transacoes {
-    font-size: var(--font-xs);
+    font-size: 12px;
   }
 
-  .tabela-transacoes thead th {
-    padding: var(--spacing-sm);
-    font-size: var(--font-xs);
+  .tabela-transacoes th,
+  .tabela-transacoes td {
+    padding: 10px 8px;
   }
 
-  .tabela-transacoes tbody td {
-    padding: var(--spacing-sm);
+  .cadastro-sql-btn {
+    padding: 4px 6px;
+    font-size: 11px;
   }
 
-  .tabela-transacoes .logradouro {
-    max-width: 100px;
-  }
-
-  .tabela-transacoes .complemento {
-    max-width: 80px;
+  .valor-badge {
+    padding: 3px 6px;
+    font-size: 12px;
   }
 }
 
+/* ============================================================================
+   RESPONSIVO - Mobile
+   ============================================================================ */
+
 @media (max-width: 480px) {
-  .tabela-container {
-    padding: var(--spacing-md);
-    border-radius: var(--radius-lg);
+  .tabela-header {
+    padding: 15px;
   }
 
   .tabela-header h2 {
-    font-size: var(--font-lg);
+    font-size: 18px;
+    margin-bottom: 8px;
   }
 
-  .tabela-header h2::before {
-    font-size: var(--font-2xl);
+  .tabela-count {
+    font-size: 12px;
   }
 
   .tabela-transacoes {
-    font-size: var(--font-xs);
+    font-size: 11px;
   }
 
-  .tabela-transacoes thead th {
-    padding: var(--spacing-xs) var(--spacing-sm);
-    font-size: var(--font-xs);
+  .tabela-transacoes th,
+  .tabela-transacoes td {
+    padding: 8px 6px;
   }
 
-  .tabela-transacoes tbody td {
-    padding: var(--spacing-xs) var(--spacing-sm);
+  .tabela-transacoes th {
+    font-size: 10px;
   }
 
-  .tabela-transacoes .logradouro {
-    max-width: 80px;
+  .cadastro-sql-btn {
+    padding: 3px 5px;
+    font-size: 10px;
   }
 
-  .tabela-transacoes .complemento {
-    max-width: 60px;
+  .iptu-icon {
+    font-size: 12px;
   }
 
-  .tabela-transacoes .valor {
-    min-width: 100px;
+  .valor-badge {
+    padding: 2px 4px;
+    font-size: 10px;
   }
 
-  .tabela-transacoes .area {
-    min-width: 80px;
+  /* Ocultar colunas em mobile */
+  .complemento-cell,
+  .cep-cell {
+    display: none;
   }
 }
