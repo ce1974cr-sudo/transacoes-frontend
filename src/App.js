@@ -119,6 +119,7 @@ function App() {
                 transacoes={transacoes} 
                 total={total}
                 limiteAplicado={limiteAplicado}
+                apiBaseUrl={process.env.REACT_APP_API_URL}  
               />
             </>
           )}
