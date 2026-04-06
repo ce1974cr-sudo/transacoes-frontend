@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import '../styles/IptuSidebar.css';
 
@@ -18,13 +18,7 @@ const IptuSidebar = ({ isOpen, onClose, numeroContribuinte, apiBaseUrl }) => {
   const [error, setError] = useState(null);
 
   // Buscar dados do IPTU quando o painel abre
-  useEffect(() => {
-    if (isOpen && numeroContribuinte) {
-      fetchIptuData();
-    }
-  }, [isOpen, numeroContribuinte]);
-
-  const fetchIptuData = async () => {
+  const fetchIptuData = useCallback(async () => {
     setLoading(true);
     setError(null);
     
@@ -40,7 +34,13 @@ const IptuSidebar = ({ isOpen, onClose, numeroContribuinte, apiBaseUrl }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [apiBaseUrl, numeroContribuinte]);
+
+  useEffect(() => {
+    if (isOpen && numeroContribuinte) {
+      fetchIptuData();
+    }
+  }, [isOpen, numeroContribuinte, fetchIptuData]);
 
   // Formatar valores monetários
   const formatCurrency = (value) => {
