@@ -26,6 +26,21 @@ export const buscarTransacoes = async (filtros) => {
       params.numero = parseInt(filtros.numero);
     }
 
+    // 🔥 NOVOS FILTROS: Endereço
+    if (filtros.endereco) {
+      params.endereco = filtros.endereco;
+    }
+
+    // Campo opcional de número para endereço
+    if (filtros.numeroEndereco) {
+      params.numero = parseInt(filtros.numeroEndereco);
+    }
+
+    // 🔥 NOVO FILTRO: CEP
+    if (filtros.cep) {
+      params.cep = filtros.cep;
+    }
+
     if (filtros.areaMinima) {
       params.area_minima = parseFloat(filtros.areaMinima);
     }
@@ -44,7 +59,7 @@ export const buscarTransacoes = async (filtros) => {
     }
 
     // 🔹 limite
-    params.limit = filtros.limit || 10;
+    params.limit = filtros.limit || 50;
 
     // 🔍 DEBUG (ver no console do navegador)
     console.log("PARAMS:", params);
