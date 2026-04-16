@@ -7,6 +7,7 @@ function Filtros({ onBuscar, carregando }) {
     cadastroSql: '',
     numero: '',
     endereco: '',
+    numeroEndereco: '',
     cep: '',
     valorMin: '',
     valorMax: '',
@@ -25,6 +26,7 @@ function Filtros({ onBuscar, carregando }) {
       cadastroSql: '',
       numero: '',
       endereco: '',
+      numeroEndereco: '',
       cep: ''
     }));
   };
@@ -57,6 +59,7 @@ function Filtros({ onBuscar, carregando }) {
       filtrosFinal.numero = filtros.numero;
     } else if (tipoFiltro === 'endereco') {
       filtrosFinal.endereco = filtros.endereco;
+      filtrosFinal.numeroEndereco = filtros.numeroEndereco;
     } else if (tipoFiltro === 'cep') {
       filtrosFinal.cep = filtros.cep;
     }
@@ -70,6 +73,7 @@ function Filtros({ onBuscar, carregando }) {
       cadastroSql: '',
       numero: '',
       endereco: '',
+      numeroEndereco: '',
       cep: '',
       valorMin: '',
       valorMax: '',
@@ -124,7 +128,7 @@ function Filtros({ onBuscar, carregando }) {
                     name="cadastroSql"
                     value={filtros.cadastroSql}
                     onChange={handleChange}
-                    placeholder="101554"
+                    placeholder="169199"
                     disabled={carregando}
                   />
                 </div>
@@ -140,7 +144,7 @@ function Filtros({ onBuscar, carregando }) {
                     name="numero"
                     value={filtros.numero}
                     onChange={handleChange}
-                    placeholder="600"
+                    placeholder="325"
                     disabled={carregando}
                   />
                 </div>
@@ -148,21 +152,39 @@ function Filtros({ onBuscar, carregando }) {
             )}
 
             {tipoFiltro === 'endereco' && (
-              <div className="form-group">
-                <label htmlFor="endereco">
-                  Endereço
-                  <span className="hint">Não precisa ser completo</span>
-                </label>
-                <input
-                  type="text"
-                  id="endereco"
-                  name="endereco"
-                  value={filtros.endereco}
-                  onChange={handleChange}
-                  placeholder="Avenida Paulista"
-                  disabled={carregando}
-                />
-              </div>
+              <>
+                <div className="form-group">
+                  <label htmlFor="endereco">
+                    Endereço
+                    <span className="hint">Não precisa ser completo</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="endereco"
+                    name="endereco"
+                    value={filtros.endereco}
+                    onChange={handleChange}
+                    placeholder="Avenida Paulista"
+                    disabled={carregando}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="numeroEndereco">
+                    Número (Opcional)
+                    <span className="hint">Para restringir resultados</span>
+                  </label>
+                  <input
+                    type="number"
+                    id="numeroEndereco"
+                    name="numeroEndereco"
+                    value={filtros.numeroEndereco}
+                    onChange={handleChange}
+                    placeholder="900"
+                    disabled={carregando}
+                  />
+                </div>
+              </>
             )}
 
             {tipoFiltro === 'cep' && (
