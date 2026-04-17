@@ -197,7 +197,7 @@ function Filtros({ onBuscar, carregando }) {
                     <span className="hint">8 dígitos: 01001901</span>
                   </label>
                   <input
-                    type="text"
+                    type="tel"
                     id="cep"
                     name="cep"
                     value={filtros.cep}
