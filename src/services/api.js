@@ -18,34 +18,39 @@ export const buscarTransacoes = async (filtros) => {
   try {
     const params = {};
 
-    if (filtros.cadastroSql) {
-      params.cadastro_sql = filtros.cadastroSql;
+    // 🔹 TIPO 1: Cadastro SQL + Número
+    if (filtros.tipoFiltro === 'cadastro_numero') {
+      if (filtros.cadastroSql) {
+        params.cadastro_sql = filtros.cadastroSql;
+      }
+      if (filtros.numero) {
+        params.numero = parseInt(filtros.numero);
+      }
     }
 
-    if (filtros.numero) {
-      params.numero = parseInt(filtros.numero);
+    // 🔹 TIPO 2: Endereço (+ número opcional)
+    if (filtros.tipoFiltro === 'endereco') {
+      if (filtros.endereco) {
+        params.endereco = filtros.endereco;
+      }
+      // ✅ SÓ adiciona número se foi preenchido
+      if (filtros.numeroEndereco) {
+        params.numero = parseInt(filtros.numeroEndereco);
+      }
     }
 
-    // 🔥 NOVO FILTRO: Endereço
-    if (filtros.endereco) {
-      params.endereco = filtros.endereco;
+    // 🔹 TIPO 3: CEP (+ número opcional)
+    if (filtros.tipoFiltro === 'cep') {
+      if (filtros.cep) {
+        params.cep = filtros.cep; // ✅ MANTÉM COMO TEXTO (preserva zeros à esquerda)
+      }
+      // ✅ SÓ adiciona número se foi preenchido
+      if (filtros.numeroCep) {
+        params.numero = parseInt(filtros.numeroCep);
+      }
     }
 
-    // Campo opcional de número para endereço (NÃO obrigatório)
-    if (filtros.numeroEndereco) {
-      params.numero = parseInt(filtros.numeroEndereco);
-    }
-
-    // 🔥 NOVO FILTRO: CEP (COMO TEXTO - preserva zeros à esquerda)
-    if (filtros.cep) {
-      params.cep = filtros.cep; // ✅ MANTÉM COMO TEXTO
-    }
-
-    // Campo opcional de número para CEP (NÃO obrigatório)
-    if (filtros.numeroCep) {
-      params.numero = parseInt(filtros.numeroCep);
-    }
-
+    // 🔹 FILTROS SEMPRE ATIVOS (Valor e Área)
     if (filtros.areaMinima) {
       params.area_minima = parseFloat(filtros.areaMinima);
     }
@@ -63,7 +68,7 @@ export const buscarTransacoes = async (filtros) => {
       params.valor_max = parseFloat(filtros.valorMax);
     }
 
-    // 🔹 limite
+    // 🔹 LIMITE
     params.limit = filtros.limit || 50;
 
     // 🔍 DEBUG (ver no console do navegador)
