@@ -9,6 +9,7 @@ function Filtros({ onBuscar, carregando }) {
     endereco: '',
     numeroEndereco: '',
     cep: '',
+    numeroCep: '',
     valorMin: '',
     valorMax: '',
     areaMinima: '',
@@ -27,7 +28,8 @@ function Filtros({ onBuscar, carregando }) {
       numero: '',
       endereco: '',
       numeroEndereco: '',
-      cep: ''
+      cep: '',
+      numeroCep: ''
     }));
   };
 
@@ -62,6 +64,7 @@ function Filtros({ onBuscar, carregando }) {
       filtrosFinal.numeroEndereco = filtros.numeroEndereco;
     } else if (tipoFiltro === 'cep') {
       filtrosFinal.cep = filtros.cep;
+      filtrosFinal.numeroCep = filtros.numeroCep;
     }
 
     onBuscar(filtrosFinal);
@@ -75,6 +78,7 @@ function Filtros({ onBuscar, carregando }) {
       endereco: '',
       numeroEndereco: '',
       cep: '',
+      numeroCep: '',
       valorMin: '',
       valorMax: '',
       areaMinima: '',
@@ -144,7 +148,6 @@ function Filtros({ onBuscar, carregando }) {
                     name="numero"
                     value={filtros.numero}
                     onChange={handleChange}
-                    placeholder="325"
                     disabled={carregando}
                   />
                 </div>
@@ -180,7 +183,6 @@ function Filtros({ onBuscar, carregando }) {
                     name="numeroEndereco"
                     value={filtros.numeroEndereco}
                     onChange={handleChange}
-                    placeholder="900"
                     disabled={carregando}
                   />
                 </div>
@@ -188,22 +190,39 @@ function Filtros({ onBuscar, carregando }) {
             )}
 
             {tipoFiltro === 'cep' && (
-              <div className="form-group">
-                <label htmlFor="cep">
-                  CEP
-                  <span className="hint">8 dígitos: 01001901</span>
-                </label>
-                <input
-                  type="text"
-                  id="cep"
-                  name="cep"
-                  value={filtros.cep}
-                  onChange={handleChange}
-                  placeholder="01001901"
-                  maxLength="8"
-                  disabled={carregando}
-                />
-              </div>
+              <>
+                <div className="form-group">
+                  <label htmlFor="cep">
+                    CEP
+                    <span className="hint">8 dígitos: 01001901</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="cep"
+                    name="cep"
+                    value={filtros.cep}
+                    onChange={handleChange}
+                    placeholder="01001901"
+                    maxLength="8"
+                    disabled={carregando}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="numeroCep">
+                    Número (Opcional)
+                    <span className="hint">Para restringir resultados</span>
+                  </label>
+                  <input
+                    type="number"
+                    id="numeroCep"
+                    name="numeroCep"
+                    value={filtros.numeroCep}
+                    onChange={handleChange}
+                    disabled={carregando}
+                  />
+                </div>
+              </>
             )}
           </div>
 
