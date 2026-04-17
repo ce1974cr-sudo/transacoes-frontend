@@ -26,19 +26,24 @@ export const buscarTransacoes = async (filtros) => {
       params.numero = parseInt(filtros.numero);
     }
 
-    // 🔥 NOVOS FILTROS: Endereço
+    // 🔥 NOVO FILTRO: Endereço
     if (filtros.endereco) {
       params.endereco = filtros.endereco;
     }
 
-    // Campo opcional de número para endereço
+    // Campo opcional de número para endereço (NÃO obrigatório)
     if (filtros.numeroEndereco) {
       params.numero = parseInt(filtros.numeroEndereco);
     }
 
-    // 🔥 NOVO FILTRO: CEP
+    // 🔥 NOVO FILTRO: CEP (COMO TEXTO - preserva zeros à esquerda)
     if (filtros.cep) {
-      params.cep = filtros.cep;
+      params.cep = filtros.cep; // ✅ MANTÉM COMO TEXTO
+    }
+
+    // Campo opcional de número para CEP (NÃO obrigatório)
+    if (filtros.numeroCep) {
+      params.numero = parseInt(filtros.numeroCep);
     }
 
     if (filtros.areaMinima) {
