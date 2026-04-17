@@ -174,8 +174,8 @@ function Filtros({ onBuscar, carregando }) {
 
                 <div className="form-group">
                   <label htmlFor="numeroEndereco">
-                    Número (Opcional)
-                    <span className="hint">Para restringir resultados</span>
+                    Número Exato
+                    <span className="hint">Número exato</span>
                   </label>
                   <input
                     type="number"
